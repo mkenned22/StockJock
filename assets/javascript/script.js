@@ -1,104 +1,133 @@
 $(document).ready(function(){
 
-    var key = 'UPT0YN3AFDMRA5ZY'
+    var key = 'UPT0YN3AFDMRA5ZY' // valid license key for AlphaVantage
 
+    // creates the Welcome Page
     function goWelcomePage(){
         
-        var div = $("<div>");
-        div.attr("id","center");
-        
-        var img = $("<img>");
-        img.attr("src","assets/images/logo.png");
+        var div = $("<div>").attr("id","center");
+        var img = $("<img>").attr("src","assets/images/logo.png");
         div.append(img);
 
         div.append("<br><br>");
 
-        var button = $("<button>");
-        button.attr("id","getStartedButton");
-        button.click(goGetStartedPage);
+        var button = $("<button>").attr("id","getStartedButton");
         button.text("Get Started");
         div.append(button);
 
         $("body").append(div)
-
     }
 
+    // on click event for the "Get Started" button
+    $(document).on("click", "#getStartedButton", function () {
+        goGetStartedPage(); // go to the get started page
+    });
+
+    // creates Get Started Page
     function goGetStartedPage(){
 
-        $("body").text("");
+        $("body").text(""); // clears out the body
         
         var div = $("<div>");
         div.attr("id","center");
         
-        var form = $("<form>");
+        var form = $("<form>"); // form
         form.attr("id","nameForm");
 
-        var label = $("<label>");
+        var label = $("<label>"); // label
         label.attr("for","username");
         label.text("Please enter your username:");
         form.append(label);
 
-        var input = $("<input>");
+        var input = $("<input>"); // input filed
         input.attr("type","text");
         input.attr("name","username");
         input.attr("id","username");
         input.attr("placeholder","here");
         form.append(input);
 
-        var button = $("<button>");
+        var button = $("<button>"); // submit button
         button.attr("id","submitButton");
         button.attr("disabled", "disabled");
 
         div.append(form);
         div.append(button);
 
-        $("body").append(div);
-
+        $("body").append(div); // append elements to the body
     }
 
+    // validates the username that is entered
+    // must be more than one character
+    function validateUsername() {
+        if ($("#username").val().length > 0) {
+            $("#submitButton").removeAttr("disabled");
+            //$(“input[type=submit]“).prop(“disabled”, false);
+            //alert(“valid”)
+        }
+        else {
+            $("#submitButton").prop("disabled", true)
+            //alert(“invalid”)
+            //$(“input[type=submit]“).prop(“disabled”, true);
+        }
+    }
+
+    // on key up validate the username
+    $(document).on("keyup", "#username", function () {
+        var name = $("#username").val()
+        validateUsername();
+    });
+
+    // on click event for submit button to go to Stock Page
+    $(document).on("click", "#submitButton", function () {
+        goStockPage(); // go to stock page
+    });
+
+    // Create stock page
     function goStockPage(){
 
-        $("body").text("");
+        $("body").text(""); // clears body
 
-        var container = $("<div>")
+        var container = $("<div>") // container
         container.addClass("container");
 
-        var row = $("<div>");
+        var row = $("<div>"); // row
         row.addClass("row");
 
-        var col1 = $("<div>");
+        var col1 = $("<div>"); // col1 
         col1.addClass("col-md-6");
 
-        var col2 = $("<div>");
+        var col2 = $("<div>"); // col2
         col2.addClass("col-md-6");
 
-        row.append(col1);
+        row.append(col1); // adding columns to rows
         row.append(col2);
-        container.append(row);
+        container.append(row); // adding row to container
 
-        var inputData = $("<div>");
+        // begin col1
+        // col1 includes all of the stock data
+        var inputData = $("<div>"); // creating siv for the form
         inputData.attr("id","inputData");
 
-        var form = $("<form>");
+        var form = $("<form>"); // form
         form.attr("id","stockForm");
 
-        var label = $("<label>");
+        var label = $("<label>"); // label
         label.attr("for","stockname");
         label.text("Please enter your stock ticker or company name:");
         form.append(label);
 
-        var input = $("<input>");
+        var input = $("<input>"); // input
         input.attr("type","text");
         input.attr("name","stockname");
         input.attr("id","stockname");
         input.attr("placeholder","here");
         form.append(input);
 
-        var button = $("<button>");
+        var button = $("<button>"); // button
         button.attr("id","stockButton");
         button.attr("disabled", "disabled");
 
-        inputData.append(form);
+        inputData.append(form); // adding elements to input data div
         inputData.append(label);
         inputData.append(input);
         inputData.append(button); 
@@ -106,7 +135,7 @@ $(document).ready(function(){
 
         col1.append("<br><br>");
 
-        var data1 = $("<div>");
+        var data1 = $("<div>"); // adding divs for stock data
         data1.attr("id","data1");
 
         var graph = $("<div>");
@@ -121,11 +150,12 @@ $(document).ready(function(){
 
         // end col1
         // begin col2
+        // col2 contains all of the news data
 
-        var news = $("<div>");
+        var news = $("<div>"); // news div
         news.attr("id","news");
 
-        var form = $("<form>");
+        var form = $("<form>"); // form
         form.attr("id","newsForm");
         form.append($("<h1>").text("Your News Search"));
 
@@ -134,91 +164,65 @@ $(document).ready(function(){
         var buttonDiv = $("<div>");
         buttonDiv.attr("id","buttons");
 
-        var button = $("<button>");
+        var button = $("<button>"); //button
         button.attr("id","searchData");
 
-        var input = $("<input>");
+        var input = $("<input>"); //input
         input.attr("type","text");
         input.attr("id","searchTerm");
         input.attr("name","searchTerm");
         input.attr("placeholder","Enter your search here...");
 
-        buttonDiv.append(button);
+        buttonDiv.append(button); // add button and input to button div and form
         buttonDiv.append(input);
         form.append(buttonDiv);
 
-        var articles = $("<div>");
+        var articles = $("<div>"); // create landing pad for articles from AJAX call
         articles.attr("id","article_search_appears")
-
         form.append(articles);
 
-        col2.append(form);
+        col2.append(form); // add the form to col2
 
-        $("body").append(container);
+        $("body").append(container); // add the bootstrap container to the body
 
-        populateArticles();
+        populateArticles(); // calls the function to populate top 3 news articles by default
 
     }
 
+    // validate that the stock name is more than one character
+    // this will get updated
+    function validateStockName() {
+        if ($("#stockname").val().length > 0) {
+            $("#stockButton").removeAttr("disabled");
+        }
+        else {
+            $("#stockButton").prop("disabled", true)
+        }
+    }
+
+    // on key event to validate the stock name
+    $(document).on("keyup", "#stockname", function () {
+        var name = $("#stockname").val()
+        validateStockName();
+    });
+    
+    // add stock buttons function
     function addStockButton(){
         userInput = $("#stockname").val();
         var button = $("<button>");
         button.attr("id",userInput);
-        button.attr("class","companyButtons")
+        button.addClass("companyButtons")
         button.text(userInput);
         $("#inputData").append(button);
 
     }
 
-    function validateUsername() {
-        if ($("#username").val().length > 0) {
-            $("#submitButton").removeAttr("disabled");
-            //$(“input[type=submit]“).prop(“disabled”, false);
-            //alert(“valid”)
-        }
-        else {
-            $("#submitButton").prop("disabled", true)
-            //alert(“invalid”)
-            //$(“input[type=submit]“).prop(“disabled”, true);
-        }
-    }
-
-    function validateStockName() {
-        if ($("#stockname").val().length > 0) {
-            $("#stockButton").removeAttr("disabled");
-            //$(“input[type=submit]“).prop(“disabled”, false);
-            //alert(“valid”)
-        }
-        else {
-            $("#stockButton").prop("disabled", true)
-            //alert(“invalid”)
-            //$(“input[type=submit]“).prop(“disabled”, true);
-        }
-    }
-
-
-    $(document).on("keyup", "#username", function () {
-        var name = $("#username").val()
-        validateUsername();
-    });
-
-    $(document).on("keyup", "#stockname", function () {
-        var name = $("#stockname").val()
-        validateStockName();
-    });
-
-    $(document).on("click", "#submitButton", function () {
-        goStockPage();
-    });
-
-    $(document).on("click", "#getStartedButton", function () {
-        goGetStartedPage();
-    });
-
+    // on click event to call addStockButton function
     $(document).on("click", "#stockButton", function () {
         addStockButton();
     });
 
+    // on click event associated to all ticker buttons
     $(document).on("click", ".companyButtons", function () {
         getStockData(this.id,key);
     });
@@ -330,7 +334,7 @@ $(document).ready(function(){
 
             var diff = parseFloat(dailyPoint["4. close"]) - parseFloat(prevPoint["4. close"]);
             var span = $("<span>");
-            if(diff < 1){span.css("color","red")}
+            if(diff < 0){span.css("color","red")}
             else{span.css("color","green")}
             span.css("font-size","18px");
             span.text("  "+diff.toFixed(2)); // difference from previous close
@@ -338,7 +342,7 @@ $(document).ready(function(){
 
             var percent  = ((parseFloat(dailyPoint["4. close"])-parseFloat(prevPoint["4. close"]))/parseFloat(prevPoint["4. close"]))*100
             var span = $("<span>");
-            if(percent < 1){span.css("color","red")}
+            if(percent < 0){span.css("color","red")}
             else{span.css("color","green")}
             span.css("font-size","18px");
             span.text("  ("+percent.toFixed(2)+"%)"); // percent difference from previous close
