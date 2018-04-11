@@ -247,6 +247,8 @@ $(document).ready(function(){
         button.addClass("companyButtons")
         button.text(userInput);
         $("#inputData").append(button);
+        populateStockArticles(userInput); // hard coded for now
+        getStockData(userInput, key);
     }
 
     // on click event to call addStockButton function
@@ -256,7 +258,8 @@ $(document).ready(function(){
 
     // on click event associated to all ticker buttons
     $(document).on("click", ".companyButtons", function () {
-        getStockData(this.id,key);
+        getStockData(this.id, key);
+        populateStockArticles(this.id);
     });
 
     // function to get stock data 
@@ -508,26 +511,31 @@ $(document).ready(function(){
 
     }
 
-    $("#searchData").on("click",function(event){
+    $(document).on("click", "#searchData", function (event) {
         event.preventDefault();
-        //clearing div on click
+        var search = $("#searchTerm").val();
+        populateStockArticles(search);
+    });     //this finishes the "on-click" ajax call
+
+    function populateDefaultArticles() {
+
         $("#article_search_appears").empty();
-        var search = $("#searchTerm").val().trim();
+        var search = $("#searchTerm").val();
         var requestParameters = "&language=en&sortBy=popularity&sources=cnbc";
         var cnbcsearchKey = "35f3a4574f3e46b5b91902719212dc95";
-        var queryURL = "https://newsapi.org/v2/everything?q=" + search + requestParameters
-           + "&apikey=" + cnbcsearchKey;
-    
+        var queryURL = "https://newsapi.org/v2/top-headlines?q=" + requestParameters
+            + "&apikey=" + cnbcsearchKey;
+
         console.log(queryURL);
-    
-          $.ajax({
+
+        $.ajax({
             url: queryURL,
             method: "GET"
-        }).done(function(response) {
+        }).done(function (response) {
             console.log(response);
             console.log(response.articles);
             var results = response.articles;
-            for(i=0;i<3;i++){
+            for (i = 0; i < 3; i++) {
                 var div = $("<div>");
                 var j = i + 1;
                 var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
@@ -535,8 +543,8 @@ $(document).ready(function(){
                 var p3 = $("<div>").text("Author: " + results[i].author);
                 var p4 = $("<div>").text("Published: " + results[i].publishedAt);
                 var a = $("<a>").text("Click Here");
-                a.attr("href",results[i].url);
-                a.attr("target","blank");            
+                a.attr("href", results[i].url);
+                a.attr("target", "blank");
                 div.append(p1);
                 div.append(p2);
                 div.append(p3);
@@ -544,9 +552,50 @@ $(document).ready(function(){
                 div.append(a);
                 $("#article_search_appears").append(div);
                 $("#article_search_appears").append($("<br>"));
-            }    
-          });
-        });     //this finishes the "on-click" ajax call
+            }
+        });      //this finishes the "document ready - default headlines" ajax call
+
+    }
+
+    function populateStockArticles(company){
+        
+        //company = "Facebook" // hard coded for now
+
+        var requestParameters = "&language=en&sortBy=popularity&sources=cnbc";
+        var cnbcsearchKey = "35f3a4574f3e46b5b91902719212dc95";
+        var queryURL = "https://newsapi.org/v2/everything?q=" + company + requestParameters
+            + "&apikey=" + cnbcsearchKey;
+
+        console.log(queryURL);
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).done(function (response) {
+            console.log(response);
+            console.log(response.articles);
+            var results = response.articles;
+            $("#article_search_appears").empty();
+            for (i = 0; i < 3; i++) {
+                var div = $("<div>");
+                var j = i + 1;
+                var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
+                var p2 = $("<div>").text("Descripion: " + results[i].description);
+                var p3 = $("<div>").text("Author: " + results[i].author);
+                var p4 = $("<div>").text("Published: " + results[i].publishedAt);
+                var a = $("<a>").text("Click Here");
+                a.attr("href", results[i].url);
+                a.attr("target", "blank");
+                div.append(p1);
+                div.append(p2);
+                div.append(p3);
+                div.append(p4);
+                div.append(a);
+                $("#article_search_appears").append(div);
+                $("#article_search_appears").append($("<br>"));
+            }
+        });
+    }
     
 
     goWelcomePage();
