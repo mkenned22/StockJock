@@ -13,6 +13,7 @@ $(document).ready(function(){
 
         var button = $("<button>").attr("id","getStartedButton");
         button.text("Get Started");
+        button.addClass("btn btn-success");
         div.append(button);
 
         $("body").append(div)
@@ -38,6 +39,7 @@ $(document).ready(function(){
         label.attr("for","username");
         label.text("Please enter your username:");
         form.append(label);
+        form.append($("<br>"));
 
         var input = $("<input>"); // input filed
         input.attr("type","text");
@@ -49,6 +51,8 @@ $(document).ready(function(){
         var button = $("<button>"); // submit button
         button.attr("id","submitButton");
         button.attr("disabled", "disabled");
+        button.addClass("btn btn-success");
+        button.text("Let's Go!")
 
         div.append(form);
         div.append(button);
@@ -61,13 +65,9 @@ $(document).ready(function(){
     function validateUsername() {
         if ($("#username").val().length > 0) {
             $("#submitButton").removeAttr("disabled");
-            //$(“input[type=submit]“).prop(“disabled”, false);
-            //alert(“valid”)
         }
         else {
             $("#submitButton").prop("disabled", true)
-            //alert(“invalid”)
-            //$(“input[type=submit]“).prop(“disabled”, true);
         }
     }
 
@@ -126,6 +126,8 @@ $(document).ready(function(){
         var button = $("<button>"); // button
         button.attr("id","stockButton");
         button.attr("disabled", "disabled");
+        button.addClass("btn btn-success");
+        button.text("Get Stock Info");
 
         inputData.append(form); // adding elements to input data div
         inputData.append(label);
@@ -166,7 +168,9 @@ $(document).ready(function(){
 
         var button = $("<button>"); //button
         button.attr("id","searchData");
-
+        button.addClass("btn btn-success");
+        button.text("Search");
+        
         var input = $("<input>"); //input
         input.attr("type","text");
         input.attr("id","searchTerm");
