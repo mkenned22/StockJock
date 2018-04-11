@@ -187,6 +187,34 @@ $(document).ready(function(){
 
         col2.append(form); // add the form to col2
 
+        // creating video div
+        var topVideo = $("<div>");
+        topVideo.attr("id","todayVideo");
+        topVideo.append($("<h1>").text("Today's Top Video"));
+        
+        var idplayer = $("<div>");
+        idplayer.attr("id","idplayer");
+        idplayer.css("width", "605px");
+        idplayer.css("height","505px");
+        idplayer.css("overflow","hidden");
+        topVideo.append(idplayer);
+        
+        var idvideoframe = $("<iframe>");
+        idvideoframe.attr("id","idvideoframe");
+        idvideoframe.css("width", "605px");
+        idvideoframe.css("height","450px");
+        idvideoframe.css("frameBorder","0");
+        idvideoframe.css("allowfullscreen", "false");
+        idvideoframe.attr("scrolling", "no");
+        idvideoframe.css("position", "relative");
+        idvideoframe.css("top", "-125px");
+        idvideoframe.css("left", "-20px");
+        idvideoframe.css("border", "5px solid white");
+        idvideoframe.attr("src","https://www.cnbc.com/top-video/");
+        idplayer.append(idvideoframe);
+
+        col2.append(topVideo);
+        
         $("body").append(container); // add the bootstrap container to the body
 
         populateArticles(); // calls the function to populate top 3 news articles by default
