@@ -213,12 +213,12 @@ $(document).ready(function(){
     // add stock buttons function
     function addStockButton(){
         userInput = $("#stockname").val();
+        $("#stockname").val("");
         var button = $("<button>");
         button.attr("id",userInput);
         button.addClass("companyButtons")
         button.text(userInput);
         $("#inputData").append(button);
-
     }
 
     // on click event to call addStockButton function
