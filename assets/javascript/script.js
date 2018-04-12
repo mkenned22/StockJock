@@ -1,17 +1,17 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     var key = 'UPT0YN3AFDMRA5ZY' // valid license key for AlphaVantage
 
     // creates the Welcome Page
-    function goWelcomePage(){
-        
-        var div = $("<div>").attr("id","center");
-        var img = $("<img>").attr("src","assets/images/logo.png");
+    function goWelcomePage() {
+
+        var div = $("<div>").attr("id", "center");
+        var img = $("<img>").attr("src", "assets/images/logo.png");
         div.append(img);
 
         div.append("<br><br>");
 
-        var button = $("<button>").attr("id","getStartedButton");
+        var button = $("<button>").attr("id", "getStartedButton");
         button.text("Get Started");
         div.append(button);
 
@@ -20,42 +20,54 @@ $(document).ready(function(){
 
     // on click event for the "Get Started" button
     $(document).on("click", "#getStartedButton", function () {
-        goGetStartedPage(); // go to the get started page
+        goGetStartedPage();
+        // go to the get started page
     });
 
     // creates Get Started Page
-    function goGetStartedPage(){
+    function goGetStartedPage() {
 
         $("body").text(""); // clears out the body
-        
+
         var div = $("<div>");
-        div.attr("id","center");
-        
+        div.attr("id", "center");
+
         var form = $("<form>"); // form
-        form.attr("id","nameForm");
+        form.attr("id", "nameForm");
 
         var label = $("<label>"); // label
-        label.attr("for","username");
+        label.attr("for", "username");
         label.text("Please enter your username:");
         form.append(label);
 
         var input = $("<input>"); // input filed
-        input.attr("type","text");
-        input.attr("name","username");
-        input.attr("id","username");
-        input.attr("placeholder","here");
+        input.attr("type", "text");
+        input.attr("name", "username");
+        input.attr("id", "username");
+        input.attr("placeholder", "here");
         form.append(input);
 
         var button = $("<button>"); // submit button
-        button.attr("id","submitButton");
+        button.attr("id", "submitButton");
         button.attr("disabled", "disabled");
+        button.text("submit");//mo added
 
         div.append(form);
         div.append(button);
 
         $("body").append(div); // append elements to the body
-    }
 
+        //     var input = document.getElementById("username");
+        //     input.addEventListener("keyup", function(event) {
+        //         // Cancel the default action, if needed
+        //         event.preventDefault();
+        //         // Number 13 is the "Enter" key on the keyboard
+        //         if (event.keyCode === 13) {
+        //             // Trigger the button element with a click
+        //             document.getElementById("submitButton").click();
+        //         }
+        //     });
+    }
     // validates the username that is entered
     // must be more than one character
     function validateUsername() {
@@ -71,19 +83,38 @@ $(document).ready(function(){
         }
     }
 
-    // on key up validate the username
+    // // on key up validate the username
     $(document).on("keyup", "#username", function () {
         var name = $("#username").val()
         validateUsername();
     });
 
+    $(document).on("keypress", "#username", function (e) {
+        if (e.which == 13) {//Enter key pressed
+            goStockPage();//Trigger search button click event
+        }
+    });
+
     // on click event for submit button to go to Stock Page
     $(document).on("click", "#submitButton", function () {
         goStockPage(); // go to stock page
+
+
+
+        // var input = document.getElementById("username");
+        // input.addEventListener("keyup", function(event) {
+        //     // Cancel the default action, if needed
+        //     event.preventDefault();
+        //     // Number 13 is the "Enter" key on the keyboard
+        //     if (event.keyCode === 13) {
+        //         // Trigger the button element with a click
+        //         document.getElementById("submitButton").click();
+        //     }
+        // });
     });
 
     // Create stock page
-    function goStockPage(){
+    function goStockPage() {
 
         $("body").text(""); // clears body
 
@@ -106,43 +137,44 @@ $(document).ready(function(){
         // begin col1
         // col1 includes all of the stock data
         var inputData = $("<div>"); // creating siv for the form
-        inputData.attr("id","inputData");
+        inputData.attr("id", "inputData");
 
         var form = $("<form>"); // form
-        form.attr("id","stockForm");
+        form.attr("id", "stockForm");
 
         var label = $("<label>"); // label
-        label.attr("for","stockname");
+        label.attr("for", "stockname");
         label.text("Please enter your stock ticker or company name:");
         form.append(label);
 
         var input = $("<input>"); // input
-        input.attr("type","text");
-        input.attr("name","stockname");
-        input.attr("id","stockname");
-        input.attr("placeholder","here");
+        input.attr("type", "text");
+        input.attr("name", "stockname");
+        input.attr("id", "stockname");
+        input.attr("placeholder", "here");
         form.append(input);
 
         var button = $("<button>"); // button
-        button.attr("id","stockButton");
+        button.attr("id", "stockButton");
         button.attr("disabled", "disabled");
+        button.text("Enter");
 
         inputData.append(form); // adding elements to input data div
         inputData.append(label);
         inputData.append(input);
-        inputData.append(button); 
+        inputData.append(button);
         col1.append(inputData);
 
         col1.append("<br><br>");
 
         var data1 = $("<div>"); // adding divs for stock data
-        data1.attr("id","data1");
+        data1.attr("id", "data1");
 
         var graph = $("<div>");
-        graph.attr("id","graph");
-    
+        graph.attr("id", "graph");
+
         var data2 = $("<div>");
-        data2.attr("id","data2");
+        data2.attr("id", "data2");
 
         col1.append(data1);
         col1.append(graph);
@@ -153,32 +185,33 @@ $(document).ready(function(){
         // col2 contains all of the news data
 
         var news = $("<div>"); // news div
-        news.attr("id","news");
+        news.attr("id", "news");
 
         var form = $("<form>"); // form
-        form.attr("id","newsForm");
+        form.attr("id", "newsForm");
         form.append($("<h1>").text("Your News Search"));
 
         news.append(form);
 
         var buttonDiv = $("<div>");
-        buttonDiv.attr("id","buttons");
+        buttonDiv.attr("id", "buttons");
 
         var button = $("<button>"); //button
-        button.attr("id","searchData");
+        button.attr("id", "searchData");
+        button.text("Enter");
 
         var input = $("<input>"); //input
-        input.attr("type","text");
-        input.attr("id","searchTerm");
-        input.attr("name","searchTerm");
-        input.attr("placeholder","Enter your search here...");
+        input.attr("type", "text");
+        input.attr("id", "searchTerm");
+        input.attr("name", "searchTerm");
+        input.attr("placeholder", "Enter your search here...");
 
         buttonDiv.append(button); // add button and input to button div and form
         buttonDiv.append(input);
         form.append(buttonDiv);
 
         var articles = $("<div>"); // create landing pad for articles from AJAX call
-        articles.attr("id","article_search_appears")
+        articles.attr("id", "article_search_appears")
         form.append(articles);
 
         col2.append(form); // add the form to col2
@@ -205,31 +238,37 @@ $(document).ready(function(){
         var name = $("#stockname").val()
         validateStockName();
     });
-    
+
     // add stock buttons function
-    function addStockButton(){
+    function addStockButton() {
         userInput = $("#stockname").val();
         var button = $("<button>");
-        button.attr("id",userInput);
+        button.attr("id", userInput);
         button.addClass("companyButtons")
         button.text(userInput);
         $("#inputData").append(button);
 
     }
+    $(document).on("keypress", "#stockname", function (e) {
+        if (e.which == 13) {//Enter key pressed
+            addStockButton();//Trigger search button click event
+        }
+    });
 
     // on click event to call addStockButton function
     $(document).on("click", "#stockButton", function () {
         addStockButton();
     });
 
+
     // on click event associated to all ticker buttons
     $(document).on("click", ".companyButtons", function () {
-        getStockData(this.id,key);
+        getStockData(this.id, key);
     });
 
     // function to get stock data 
     // will subsequently call functions to clear the page, display the graph, and display the current stock info
-    function getStockData(symbol,apikey){
+    function getStockData(symbol, apikey) {
         var queryURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=1min&outputsize=full'
         queryURL = queryURL + '&symbol=' + symbol + '&apikey=' + apikey;
 
@@ -241,31 +280,31 @@ $(document).ready(function(){
             //createPageLayout();
 
             displayGraph(data);
-            displayStockInfo(data,symbol,key);
-            localStorage.setItem(symbol,JSON.stringify(data));
+            displayStockInfo(data, symbol, key);
+            localStorage.setItem(symbol, JSON.stringify(data));
         });
     }
 
     // function to display the graph
     // uses canvas JS
-    function displayGraph(intradayPoints){
+    function displayGraph(intradayPoints) {
         // this value will change when I start to change the date range
         //var defaultLength = 391;
 
         var keys = Object.keys(intradayPoints);
         var length = Object.keys(intradayPoints).length;
-        
+
         var data = [];
         var dataSeries = { type: "line" };
         var dataPoints = [];
 
-        for(i=length-1;i>-1;i--){
-           
+        for (i = length - 1; i > -1; i--) {
+
             var point = intradayPoints[Object.keys(intradayPoints)[i]];
             var j = keys[i];
-            j = j.substring(5,16);
+            j = j.substring(5, 16);
             var k = point["4. close"];
-            
+
             dataPoints.push({
                 //x: new Date(j),
                 label: j,
@@ -281,7 +320,7 @@ $(document).ready(function(){
             theme: "light2", // "light1", "light2", "dark1", "dark2"
             zoomEnabled: true,
             animationEnabled: true,
-            axisX:{
+            axisX: {
                 title: "Date/Time (MM-DD hh:mm)",
                 labelAngle: -30
             },
@@ -289,17 +328,17 @@ $(document).ready(function(){
                 includeZero: false,
                 title: "USD"
             },
-            data: data 
+            data: data
         };
-        
-        $("#graph").CanvasJSChart(options);
-    }   
 
-    function displayStockInfo(intradayPoints,symbol,apikey){
+        $("#graph").CanvasJSChart(options);
+    }
+
+    function displayStockInfo(intradayPoints, symbol, apikey) {
 
         var queryURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY'
         queryURL = queryURL + '&symbol=' + symbol + '&apikey=' + apikey;
-        
+
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -315,8 +354,8 @@ $(document).ready(function(){
 
             // display the stock ticker and company name
             var div = $("<div>");
-            div.attr("id","title");
-            div.append("<h1>"+(symbol).toUpperCase()+"</h1>");
+            div.attr("id", "title");
+            div.append("<h1>" + (symbol).toUpperCase() + "</h1>");
             div.append("<h5>Microsoft Corporation</h5>");
             $("#data1").append(div);
 
@@ -324,49 +363,49 @@ $(document).ready(function(){
             var div = $("<div>");
 
             var span = $("<span>");
-            span.css("font-size","22px");
+            span.css("font-size", "22px");
             span.text(parseFloat(intradayPoint["4. close"]).toFixed(2)); // current price
             div.append(span);
             var span = $("<span>");
-            span.css("font-size","14px");
+            span.css("font-size", "14px");
             span.text(" USD"); // USD after stock price
             div.append(span);
 
             var diff = parseFloat(dailyPoint["4. close"]) - parseFloat(prevPoint["4. close"]);
             var span = $("<span>");
-            if(diff < 0){span.css("color","red")}
-            else{span.css("color","green")}
-            span.css("font-size","18px");
-            span.text("  "+diff.toFixed(2)); // difference from previous close
+            if (diff < 0) { span.css("color", "red") }
+            else { span.css("color", "green") }
+            span.css("font-size", "18px");
+            span.text("  " + diff.toFixed(2)); // difference from previous close
             div.append(span);
 
-            var percent  = ((parseFloat(dailyPoint["4. close"])-parseFloat(prevPoint["4. close"]))/parseFloat(prevPoint["4. close"]))*100
+            var percent = ((parseFloat(dailyPoint["4. close"]) - parseFloat(prevPoint["4. close"])) / parseFloat(prevPoint["4. close"])) * 100
             var span = $("<span>");
-            if(percent < 0){span.css("color","red")}
-            else{span.css("color","green")}
-            span.css("font-size","18px");
-            span.text("  ("+percent.toFixed(2)+"%)"); // percent difference from previous close
+            if (percent < 0) { span.css("color", "red") }
+            else { span.css("color", "green") }
+            span.css("font-size", "18px");
+            span.text("  (" + percent.toFixed(2) + "%)"); // percent difference from previous close
             div.append(span);
 
             $("#data1").append(div); // append the div to info div
             // div
-            
+
             // div to hold the open, high, and low prices
             var div = $("<div>");
-            div.attr("id","openHighLow");
-            div.append($("<span>").html("<strong>Open</strong>: " +parseFloat(dailyPoint["1. open"]).toFixed(2) + "  "));
-            div.append($("<span>").html("<strong>High</strong>: "+parseFloat(dailyPoint["2. high"]).toFixed(2) + "  "));
-            div.append($("<span>").html("<strong>Low</strong>: "+parseFloat(dailyPoint["3. low"]).toFixed(2) + "  "));
+            div.attr("id", "openHighLow");
+            div.append($("<span>").html("<strong>Open</strong>: " + parseFloat(dailyPoint["1. open"]).toFixed(2) + "  "));
+            div.append($("<span>").html("<strong>High</strong>: " + parseFloat(dailyPoint["2. high"]).toFixed(2) + "  "));
+            div.append($("<span>").html("<strong>Low</strong>: " + parseFloat(dailyPoint["3. low"]).toFixed(2) + "  "));
             $("#data1").append(div);
             // div
 
-            if(getAverageforXDays(dailyPoints,10) > getAverageforXDays(dailyPoints,5) && getAverageforXDays(dailyPoints,5) > getAverageforXDays(dailyPoints,3)){
+            if (getAverageforXDays(dailyPoints, 10) > getAverageforXDays(dailyPoints, 5) && getAverageforXDays(dailyPoints, 5) > getAverageforXDays(dailyPoints, 3)) {
                 var trend = "Down";
             }
-            else if(getAverageforXDays(dailyPoints,10) < getAverageforXDays(dailyPoints,5) && getAverageforXDays(dailyPoints,5) < getAverageforXDays(dailyPoints,3)){
+            else if (getAverageforXDays(dailyPoints, 10) < getAverageforXDays(dailyPoints, 5) && getAverageforXDays(dailyPoints, 5) < getAverageforXDays(dailyPoints, 3)) {
                 var trend = "Up";
             }
-            else{
+            else {
                 var trend = "No Trend"
             }
 
@@ -374,34 +413,34 @@ $(document).ready(function(){
             h5.text("Trend: ");
 
             var span = $("<span>");
-            if(trend === "Up"){
-                span.css("color","green");
+            if (trend === "Up") {
+                span.css("color", "green");
             }
-            else{
-                div.css("color","red");
+            else {
+                div.css("color", "red");
             }
             span.html(trend);
             h5.append(span);
             $("#data2").append(h5);
 
-            $("#data2").append($("<span>").html("<strong>10d AVG</strong>: " +getAverageforXDays(dailyPoints,10).toFixed(2)+"  "));
-            $("#data2").append($("<span>").html("<strong>5d AVG</strong>: " +getAverageforXDays(dailyPoints,5).toFixed(2)+"  "));
-            $("#data2").append($("<span>").html("<strong>3d AVG</strong>: " +getAverageforXDays(dailyPoints,3).toFixed(2)+"  "));
+            $("#data2").append($("<span>").html("<strong>10d AVG</strong>: " + getAverageforXDays(dailyPoints, 10).toFixed(2) + "  "));
+            $("#data2").append($("<span>").html("<strong>5d AVG</strong>: " + getAverageforXDays(dailyPoints, 5).toFixed(2) + "  "));
+            $("#data2").append($("<span>").html("<strong>3d AVG</strong>: " + getAverageforXDays(dailyPoints, 3).toFixed(2) + "  "));
 
             var div = $("<div>");
-            div.html("<strong>Last Updated</strong>: " +keys[0]);
+            div.html("<strong>Last Updated</strong>: " + keys[0]);
             $("#data2").append(div);
 
         }); //then
     }
 
-    function getAverageforXDays(data,int){
-        var sum=0;
-        for(i=0;i<int;i++){
+    function getAverageforXDays(data, int) {
+        var sum = 0;
+        for (i = 0; i < int; i++) {
             var point = data[Object.keys(data)[i]];
             sum += parseFloat(point["4. close"]);
         }
-        var avg = sum/int;
+        var avg = sum / int;
         return avg
     }
 
@@ -410,15 +449,15 @@ $(document).ready(function(){
 
         // div
         var div1 = $("<div>");
-        div1.attr("id","info");
+        div1.attr("id", "info");
 
         // div
         var div2 = $("<div>");
-        div2.attr("id","graph");
+        div2.attr("id", "graph");
 
         // div
         var div3 = $("<div>");
-        div3.attr("id","trends");
+        div3.attr("id", "trends");
 
         // column
         var column = $("<div>");
@@ -436,66 +475,25 @@ $(document).ready(function(){
         $("#mike").append(row);
     }
 
-    function populateArticles(){
+    function populateArticles() {
 
         $("#article_search_appears").empty();
-    var search = $("#searchTerm").val();
-    var requestParameters = "&language=en&sortBy=popularity&sources=cnbc";
-    var cnbcsearchKey = "35f3a4574f3e46b5b91902719212dc95";
-    var queryURL = "https://newsapi.org/v2/top-headlines?q=" + requestParameters
-       + "&apikey=" + cnbcsearchKey;
-
-    console.log(queryURL);
-
-      $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).done(function(response) {
-        console.log(response);
-        console.log(response.articles);
-        var results = response.articles;
-        for(i=0;i<3;i++){
-            var div = $("<div>");
-            var j = i + 1;
-            var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
-            var p2 = $("<div>").text("Descripion: " + results[i].description);
-            var p3 = $("<div>").text("Author: " + results[i].author);
-            var p4 = $("<div>").text("Published: " + results[i].publishedAt);
-            var a = $("<a>").text("Click Here");
-            a.attr("href",results[i].url);
-            a.attr("target","blank");            
-            div.append(p1);
-            div.append(p2);
-            div.append(p3);
-            div.append(p4);
-            div.append(a);
-            $("#article_search_appears").append(div);
-            $("#article_search_appears").append($("<br>"));
-        }    
-    });      //this finishes the "document ready - default headlines" ajax call
-
-    }
-
-    $("#searchData").on("click",function(event){
-        event.preventDefault();
-        //clearing div on click
-        $("#article_search_appears").empty();
-        var search = $("#searchTerm").val().trim();
+        var search = $("#searchTerm").val();
         var requestParameters = "&language=en&sortBy=popularity&sources=cnbc";
         var cnbcsearchKey = "35f3a4574f3e46b5b91902719212dc95";
-        var queryURL = "https://newsapi.org/v2/everything?q=" + search + requestParameters
-           + "&apikey=" + cnbcsearchKey;
-    
+        var queryURL = "https://newsapi.org/v2/top-headlines?q=" + requestParameters
+            + "&apikey=" + cnbcsearchKey;
+
         console.log(queryURL);
-    
-          $.ajax({
+
+        $.ajax({
             url: queryURL,
             method: "GET"
-        }).done(function(response) {
+        }).done(function (response) {
             console.log(response);
             console.log(response.articles);
             var results = response.articles;
-            for(i=0;i<3;i++){
+            for (i = 0; i < 3; i++) {
                 var div = $("<div>");
                 var j = i + 1;
                 var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
@@ -503,8 +501,8 @@ $(document).ready(function(){
                 var p3 = $("<div>").text("Author: " + results[i].author);
                 var p4 = $("<div>").text("Published: " + results[i].publishedAt);
                 var a = $("<a>").text("Click Here");
-                a.attr("href",results[i].url);
-                a.attr("target","blank");            
+                a.attr("href", results[i].url);
+                a.attr("target", "blank");
                 div.append(p1);
                 div.append(p2);
                 div.append(p3);
@@ -512,10 +510,51 @@ $(document).ready(function(){
                 div.append(a);
                 $("#article_search_appears").append(div);
                 $("#article_search_appears").append($("<br>"));
-            }    
-          });
-        });     //this finishes the "on-click" ajax call
-    
+            }
+        });      //this finishes the "document ready - default headlines" ajax call
+
+    }
+
+    $("#searchData").on("click", function (event) {
+        event.preventDefault();
+        //clearing div on click
+        $("#article_search_appears").empty();
+        var search = $("#searchTerm").val().trim();
+        var requestParameters = "&language=en&sortBy=popularity&sources=cnbc";
+        var cnbcsearchKey = "35f3a4574f3e46b5b91902719212dc95";
+        var queryURL = "https://newsapi.org/v2/everything?q=" + search + requestParameters
+            + "&apikey=" + cnbcsearchKey;
+
+        console.log(queryURL);
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).done(function (response) {
+            console.log(response);
+            console.log(response.articles);
+            var results = response.articles;
+            for (i = 0; i < 3; i++) {
+                var div = $("<div>");
+                var j = i + 1;
+                var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
+                var p2 = $("<div>").text("Descripion: " + results[i].description);
+                var p3 = $("<div>").text("Author: " + results[i].author);
+                var p4 = $("<div>").text("Published: " + results[i].publishedAt);
+                var a = $("<a>").text("Click Here");
+                a.attr("href", results[i].url);
+                a.attr("target", "blank");
+                div.append(p1);
+                div.append(p2);
+                div.append(p3);
+                div.append(p4);
+                div.append(a);
+                $("#article_search_appears").append(div);
+                $("#article_search_appears").append($("<br>"));
+            }
+        });
+    });     //this finishes the "on-click" ajax call
+
 
     goWelcomePage();
 
