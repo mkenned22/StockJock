@@ -77,6 +77,12 @@ $(document).ready(function(){
         validateUsername();
     });
 
+    $(document).on("keypress", "#username", function (e) {
+        if (e.which == 13) {//Enter key pressed
+            goStockPage();//Trigger search button click event
+        }
+    });
+
     // on click event for submit button to go to Stock Page
     $(document).on("click", "#submitButton", function () {
         goStockPage(); // go to stock page
@@ -254,6 +260,12 @@ $(document).ready(function(){
     // on click event to call addStockButton function
     $(document).on("click", "#stockButton", function () {
         addStockButton();
+    });
+
+    $(document).on("keypress", "#stockname", function (e) {
+        if (e.which == 13) {//Enter key pressed
+            addStockButton();//Trigger search button click event
+        }
     });
 
     // on click event associated to all ticker buttons
