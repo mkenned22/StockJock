@@ -1,6 +1,19 @@
 $(document).ready(function(){
 
     var key = 'UPT0YN3AFDMRA5ZY' // valid license key for AlphaVantage
+    getCompanies();
+
+    function getCompanies(){
+        var requestURL = 'https://mkenned22.github.io/StockJock/assets/data/companies.json';
+        var request = new XMLHttpRequest();
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function() {
+            companies = request.response;
+            console.log(companies);
+        }
+    }
 
     // creates the Welcome Page
     function goWelcomePage(){
@@ -141,6 +154,7 @@ $(document).ready(function(){
         inputData.append(input);
         inputData.append(button); 
         col1.append(inputData);
+        col1.append($("<div>").attr("id","stockValidation"));
 
         col1.append("<br><br>");
 
@@ -235,6 +249,7 @@ $(document).ready(function(){
     // validate that the stock name is more than one character
     // this will get updated
     function validateStockName() {
+
         if ($("#stockname").val().length > 0) {
             $("#stockButton").removeAttr("disabled");
         }
@@ -243,22 +258,45 @@ $(document).ready(function(){
         }
     }
 
+
+// var requestURL = 'https://mkenned22.github.io/StockJock/assets/data/companies.json';
+//     var request = new XMLHttpRequest();
+//     request.open('GET', requestURL);
+//     request.responseType = 'json';
+// request.send();
+// request.onload = function() {
+//   var companies = request.response;
+//   console.log(companies)
+
     // on key event to validate the stock name
     $(document).on("keyup", "#stockname", function () {
         var name = $("#stockname").val()
         validateStockName();
+
     });
     
     // add stock buttons function
     function addStockButton(){
-        var button = $("<button>");
-        button.attr("id",$("#stockname").val());
-        button.addClass("companyButtons")
-        button.text($("#stockname").val());
-        $("#inputData").append(button);
-        populateStockArticles($("#stockname").val()); // hard coded for now
-        getStockData($("#stockname").val(), key);
-        $("#stockname").val("");
+        var ticker = $("#stockname").val();
+        for(i=0;i<companies.length;i++){
+            if(companies[i].Symbol == ticker.toUpperCase()){
+                //$("#stockValidation").text("");
+                company = companies[i].Name;
+                var button = $("<button>");
+                button.attr("id",ticker);
+                button.addClass("companyButtons")
+                button.text(company);
+                $("#inputData").append(button);
+                //populateStockArticles(company); // hard coded for now
+                //getStockData($("#stockname").val(), key);
+                $("#stockname").val("");
+            }
+            else {
+                $("#stockname").val("");
+                //$("#stockValidation").text("Not a valid ticker").css("color","red");
+
+            }
+        }
     }
 
     // on click event to call addStockButton function
@@ -386,7 +424,7 @@ $(document).ready(function(){
             var div = $("<div>");
             div.attr("id","title");
             div.append("<h1>"+(symbol).toUpperCase()+"</h1>");
-            div.append("<h5>Microsoft Corporation</h5>");
+            div.append("<h5>"+company+"</h5>");
             $("#data1").append(div);
 
             // div to hold the stock price, difference from previous close, percent change
