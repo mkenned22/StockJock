@@ -250,15 +250,14 @@ $(document).ready(function(){
     
     // add stock buttons function
     function addStockButton(){
-        userInput = $("#stockname").val();
-        $("#stockname").val("");
         var button = $("<button>");
-        button.attr("id",userInput);
+        button.attr("id",$("#stockname").val());
         button.addClass("companyButtons")
-        button.text(userInput);
+        button.text($("#stockname").val());
         $("#inputData").append(button);
-        populateStockArticles(userInput); // hard coded for now
-        getStockData(userInput, key);
+        populateStockArticles($("#stockname").val()); // hard coded for now
+        getStockData($("#stockname").val(), key);
+        $("#stockname").val("");
     }
 
     // on click event to call addStockButton function
@@ -453,9 +452,9 @@ $(document).ready(function(){
             h5.append(span);
             $("#data2").append(h5);
 
-            $("#data2").append($("<span>").html("<strong>10d AVG</strong>: " +getAverageforXDays(dailyPoints,10).toFixed(2)+"  "));
-            $("#data2").append($("<span>").html("<strong>5d AVG</strong>: " +getAverageforXDays(dailyPoints,5).toFixed(2)+"  "));
-            $("#data2").append($("<span>").html("<strong>3d AVG</strong>: " +getAverageforXDays(dailyPoints,3).toFixed(2)+"  "));
+            $("#data2").append($("<div>").html("<strong>10d AVG</strong>: " +getAverageforXDays(dailyPoints,10).toFixed(2)+"  "));
+            $("#data2").append($("<div>").html("<strong>5d AVG</strong>: " +getAverageforXDays(dailyPoints,5).toFixed(2)+"  "));
+            $("#data2").append($("<div>").html("<strong>3d AVG</strong>: " +getAverageforXDays(dailyPoints,3).toFixed(2)+"  "));
 
             var div = $("<div>");
             div.html("<strong>Last Updated</strong>: " +keys[0]);

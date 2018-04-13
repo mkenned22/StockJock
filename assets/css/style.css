@@ -11,11 +11,15 @@ img{
     transform: translateY(-50%);  */
 }
 
-
 #graph{
     height: 300px;
-    width: 80%;
+    width: 100%;
     margin: auto;
+}
+
+#data1, #data2{
+    text-align: center;
+    margin-top: 20px;
 }
 
 /**CSS Section Kean**/
