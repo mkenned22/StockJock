@@ -277,13 +277,14 @@ $(document).ready(function(){
     
     // add stock buttons function
     function addStockButton(){
-        var ticker = $("#stockname").val();
+        ticker = $("#stockname").val();
         for(i=0;i<companies.length;i++){
             if(companies[i].Symbol == ticker.toUpperCase()){
                 //$("#stockValidation").text("");
                 company = companies[i].Name;
                 var button = $("<button>");
                 button.attr("id",ticker);
+                button.attr("name", company);
                 button.addClass("companyButtons")
                 button.text(company);
                 $("#inputData").append(button);
@@ -312,6 +313,7 @@ $(document).ready(function(){
 
     // on click event associated to all ticker buttons
     $(document).on("click", ".companyButtons", function () {
+        company = this.name;
         getStockData(this.id, key);
         populateStockArticles(this.id);
     });
@@ -333,7 +335,7 @@ $(document).ready(function(){
     // function to get stock data 
     // will subsequently call functions to clear the page, display the graph, and display the current stock info
     function getStockData(symbol,apikey){
-        var queryURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=1min&outputsize=full'
+        var queryURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=1min&outputsize=compact'
         queryURL = queryURL + '&symbol=' + symbol + '&apikey=' + apikey;
 
     // First clear existing graph then show loading gif
@@ -404,7 +406,7 @@ $(document).ready(function(){
 
     function displayStockInfo(intradayPoints,symbol,apikey){
 
-        var queryURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY'
+        var queryURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact'
         queryURL = queryURL + '&symbol=' + symbol + '&apikey=' + apikey;
         
         $.ajax({
