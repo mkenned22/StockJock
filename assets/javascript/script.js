@@ -152,7 +152,11 @@ $(document).ready(function(){
         var data2 = $("<div>");
         data2.attr("id","data2");
 
+        var idloading = $("<img>");
+        idloading.attr("id","idloading");
+
         col1.append(data1);
+        col1.append(idloading);
         col1.append(graph);
         col1.append(data2);
 
@@ -273,6 +277,20 @@ $(document).ready(function(){
         getStockData(this.id, key);
         populateStockArticles(this.id);
     });
+        // display loading gif function
+        function displayLoading(){
+            $("#graph").empty();
+            $("#data1").empty();
+            $("#data2").empty();
+            $("#idloading").css("width", "200px");
+            $("#idloading").css("height","300px");
+            $("#idloading").attr("src", "assets/images/loading.gif");
+        }
+        function clearLoading(){
+            //$("#idloading").removeAttr("src");
+            $("#idloading").css("width", "0px");
+            $("#idloading").css("height","0px");
+        }
 
     // function to get stock data 
     // will subsequently call functions to clear the page, display the graph, and display the current stock info
@@ -280,13 +298,17 @@ $(document).ready(function(){
         var queryURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=1min&outputsize=full'
         queryURL = queryURL + '&symbol=' + symbol + '&apikey=' + apikey;
 
+    // First clear existing graph then show loading gif
+    displayLoading();
+
         jQuery.ajax({
             type: "GET",
             url: queryURL,
         }).done(function (response) {
             var data = response["Time Series (1min)"];
+            //clear loading div
+            clearLoading();
             //createPageLayout();
-
             displayGraph(data);
             displayStockInfo(data,symbol,key);
             localStorage.setItem(symbol,JSON.stringify(data));
