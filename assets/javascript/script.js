@@ -7,6 +7,7 @@ $(document).ready(function(){
         
         var div = $("<div>").attr("id","center");
         var img = $("<img>").attr("src","assets/images/logo.png");
+        img.attr("id","logo");
         div.append(img);
 
         div.append("<br><br>");
@@ -211,7 +212,7 @@ $(document).ready(function(){
         
         var idvideoframe = $("<iframe>");
         idvideoframe.attr("id","idvideoframe");
-        idvideoframe.css("width", "605px");
+        idvideoframe.css("width", "100%");
         idvideoframe.css("height","450px");
         idvideoframe.css("frameBorder","0");
         idvideoframe.css("allowfullscreen", "false");
@@ -523,20 +524,27 @@ $(document).ready(function(){
         console.log(response.articles);
         var results = response.articles;
         for(i=0;i<3;i++){
+
+            
             var div = $("<div>");
+            var article = $("<div>").html('<a href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
+
             var j = i + 1;
-            var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
-            var p2 = $("<div>").text("Descripion: " + results[i].description);
-            var p3 = $("<div>").text("Author: " + results[i].author);
-            var p4 = $("<div>").text("Published: " + results[i].publishedAt);
-            var a = $("<a>").text("Click Here");
-            a.attr("href",results[i].url);
-            a.attr("target","blank");            
-            div.append(p1);
-            div.append(p2);
-            div.append(p3);
-            div.append(p4);
-            div.append(a);
+            //var p = $("<div>").html("<img src="+ results[i].urlToImage +"></img>")
+            //var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
+            //var p2 = $("<div>").text("Descripion: " + results[i].description);
+            //var p3 = $("<div>").text("Author: " + results[i].author);
+            //var p4 = $("<div>").text("Published: " + results[i].publishedAt);
+            //var a = $("<a>").text("Click Here");
+            //a.attr("href",results[i].url);
+            //a.attr("target","blank");   
+            //div.append(p);
+            div.append(article);         
+            //div.append(p1);
+            //div.append(p2);
+            //div.append(p3);
+            //div.append(p4);
+            //div.append(a);
             $("#article_search_appears").append(div);
             $("#article_search_appears").append($("<br>"));
         }    
@@ -570,19 +578,21 @@ $(document).ready(function(){
             var results = response.articles;
             for (i = 0; i < 3; i++) {
                 var div = $("<div>");
+                var article = $("<div>").html('<a href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
+
                 var j = i + 1;
-                var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
-                var p2 = $("<div>").text("Descripion: " + results[i].description);
-                var p3 = $("<div>").text("Author: " + results[i].author);
-                var p4 = $("<div>").text("Published: " + results[i].publishedAt);
-                var a = $("<a>").text("Click Here");
-                a.attr("href", results[i].url);
-                a.attr("target", "blank");
-                div.append(p1);
-                div.append(p2);
-                div.append(p3);
-                div.append(p4);
-                div.append(a);
+                // var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
+                // var p2 = $("<div>").text("Descripion: " + results[i].description);
+                // var p3 = $("<div>").text("Author: " + results[i].author);
+                // var p4 = $("<div>").text("Published: " + results[i].publishedAt);
+                // var a = $("<a>").text("Click Here");
+                // a.attr("href", results[i].url);
+                // a.attr("target", "blank");
+                // div.append(p1);
+                // div.append(p2);
+                // div.append(p3);
+                // div.append(p4);
+                div.append(article);
                 $("#article_search_appears").append(div);
                 $("#article_search_appears").append($("<br>"));
             }
@@ -611,19 +621,21 @@ $(document).ready(function(){
             $("#article_search_appears").empty();
             for (i = 0; i < 3; i++) {
                 var div = $("<div>");
+                var article = $("<div>").html('<a href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
+
                 var j = i + 1;
-                var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
-                var p2 = $("<div>").text("Descripion: " + results[i].description);
-                var p3 = $("<div>").text("Author: " + results[i].author);
-                var p4 = $("<div>").text("Published: " + results[i].publishedAt);
-                var a = $("<a>").text("Click Here");
-                a.attr("href", results[i].url);
-                a.attr("target", "blank");
-                div.append(p1);
-                div.append(p2);
-                div.append(p3);
-                div.append(p4);
-                div.append(a);
+                // var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
+                // var p2 = $("<div>").text("Descripion: " + results[i].description);
+                // var p3 = $("<div>").text("Author: " + results[i].author);
+                // var p4 = $("<div>").text("Published: " + results[i].publishedAt);
+                // var a = $("<a>").text("Click Here");
+                // a.attr("href", results[i].url);
+                // a.attr("target", "blank");
+                // div.append(p1);
+                // div.append(p2);
+                // div.append(p3);
+                // div.append(p4);
+                div.append(article);
                 $("#article_search_appears").append(div);
                 $("#article_search_appears").append($("<br>"));
             }
