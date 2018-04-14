@@ -52,6 +52,8 @@ $(document).ready(function(){
         var label = $("<label>"); // label
         label.attr("for","username");
         label.text("Please enter your username:");
+        label.css("margin-top", "100px");
+        label.css("font-size", "40px");
         form.append(label);
         form.append($("<br>"));
 
@@ -60,6 +62,11 @@ $(document).ready(function(){
         input.attr("name","username");
         input.attr("id","username");
         input.attr("placeholder","here");
+        input.css("fontSize", "30px");
+        input.css("text-align", "center");
+        input.css("width", "200px");
+        input.css("height", "100px");
+        input.css("border", "solid", "2px");
         form.append(input);
 
         var button = $("<button>"); // submit button
@@ -67,6 +74,7 @@ $(document).ready(function(){
         button.attr("disabled", "disabled");
         button.addClass("btn btn-success");
         button.text("Let's Go!")
+        button.css("margin-top", "10px")
 
         div.append(form);
         div.append(button);
