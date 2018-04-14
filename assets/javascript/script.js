@@ -110,6 +110,52 @@ $(document).ready(function(){
         var container = $("<div>") // container
         container.addClass("container");
 
+        var header = $("<header>");
+        header.text("StockJock");
+        header.addClass("navbar")
+        header.css("background-color","green");
+        container.append(header)
+
+        var row1 = $("<div>");
+        row1.text("");
+
+        var inputData = $("<div>"); // creating siv for the form
+        inputData.attr("id","inputData");
+
+        var form = $("<form>"); // form
+        form.attr("id","stockForm");
+
+        var label = $("<label>"); // label
+        label.attr("for","stockname");
+        label.html("<p>Enter a stock ticker you would like to track:&nbsp&nbsp</p>");
+        form.append(label);
+
+        var input = $("<input>"); // input
+        input.attr("type","text");
+        input.attr("name","stockname");
+        input.attr("id","stockname");
+        input.attr("placeholder","TICKER");
+        input.css("margin","3px");
+        input.css("height","38px");
+        input.css("border-radius","5px")
+        form.append(input);
+
+        var button = $("<button>"); // button
+        button.attr("id","stockButton");
+        button.attr("disabled", "disabled");
+        button.addClass("btn btn-success");
+        button.text("Get Stock Info");
+
+        inputData.append(form); // adding elements to input data div
+        inputData.append(label);
+        inputData.append(input);
+        inputData.append(button); 
+        row1.append(inputData);
+
+        row1.append($("<div>").attr("id","tickerButtonDiv"));
+
+        container.append(row1)
+
         var row = $("<div>"); // row
         row.addClass("row");
 
@@ -125,38 +171,10 @@ $(document).ready(function(){
 
         // begin col1
         // col1 includes all of the stock data
-        var inputData = $("<div>"); // creating siv for the form
-        inputData.attr("id","inputData");
 
-        var form = $("<form>"); // form
-        form.attr("id","stockForm");
-
-        var label = $("<label>"); // label
-        label.attr("for","stockname");
-        label.text("Please enter your stock ticker or company name:");
-        form.append(label);
-
-        var input = $("<input>"); // input
-        input.attr("type","text");
-        input.attr("name","stockname");
-        input.attr("id","stockname");
-        input.attr("placeholder","here");
-        form.append(input);
-
-        var button = $("<button>"); // button
-        button.attr("id","stockButton");
-        button.attr("disabled", "disabled");
-        button.addClass("btn btn-success");
-        button.text("Get Stock Info");
-
-        inputData.append(form); // adding elements to input data div
-        inputData.append(label);
-        inputData.append(input);
-        inputData.append(button); 
-        col1.append(inputData);
-        col1.append($("<div>").attr("id","stockValidation"));
-
-        col1.append("<br><br>");
+        var data0 = $("<div>");
+        data0.attr("id","data0");
+        data0.html("<h1>Your Stock Search</h1>");
 
         var data1 = $("<div>"); // adding divs for stock data
         data1.attr("id","data1");
@@ -169,7 +187,9 @@ $(document).ready(function(){
 
         var idloading = $("<img>");
         idloading.attr("id","idloading");
+        
 
+        col1.append(data0);
         col1.append(data1);
         col1.append(idloading);
         col1.append(graph);
@@ -190,6 +210,7 @@ $(document).ready(function(){
 
         var buttonDiv = $("<div>");
         buttonDiv.attr("id","buttons");
+        buttonDiv.css("margin-bottom","5px")
 
         var button = $("<button>"); //button
         button.attr("id","searchData");
@@ -200,7 +221,11 @@ $(document).ready(function(){
         input.attr("type","text");
         input.attr("id","searchTerm");
         input.attr("name","searchTerm");
-        input.attr("placeholder","Enter your search here...");
+        input.css("margin","3px");
+        input.css("height","38px");
+        input.css("border-radius","5px")
+        input.attr("placeholder","NEWS");
+
 
         buttonDiv.append(button); // add button and input to button div and form
         buttonDiv.append(input);
@@ -215,16 +240,18 @@ $(document).ready(function(){
         // creating video div
         var topVideo = $("<div>");
         topVideo.attr("id","todayVideo");
-        topVideo.append($("<h1>").text("Today's Top Video"));
+        topVideo.append($("<h1>").text("Today's Top Video").css("margin-bottom","10px").css("text-align","center"));
         
         var idplayer = $("<div>");
         idplayer.attr("id","idplayer");
-        idplayer.css("width", "605px");
+        idplayer.css("width", "540px");
         idplayer.css("height","505px");
         idplayer.css("overflow","hidden");
         topVideo.append(idplayer);
         
         var idvideoframe = $("<iframe>");
+        idvideoframe.css("margin","3px");
+
         idvideoframe.attr("id","idvideoframe");
         idvideoframe.css("width", "100%");
         idvideoframe.css("height","450px");
@@ -285,9 +312,10 @@ $(document).ready(function(){
                 var button = $("<button>");
                 button.attr("id",ticker);
                 button.attr("name", company);
-                button.addClass("companyButtons")
+                button.addClass("companyButtons btn btn-success")
+                
                 button.text(company);
-                $("#inputData").append(button);
+                $("#tickerButtonDiv").append(button);
                 //populateStockArticles(company); // hard coded for now
                 //getStockData($("#stockname").val(), key);
                 $("#stockname").val("");
@@ -323,7 +351,7 @@ $(document).ready(function(){
             $("#data1").empty();
             $("#data2").empty();
             $("#idloading").css("width", "200px");
-            $("#idloading").css("height","300px");
+            $("#idloading").css("height","200px");
             $("#idloading").attr("src", "assets/images/loading.gif");
         }
         function clearLoading(){
@@ -463,9 +491,9 @@ $(document).ready(function(){
             // div to hold the open, high, and low prices
             var div = $("<div>");
             div.attr("id","openHighLow");
-            div.append($("<span>").html("<strong>Open</strong>: " +parseFloat(dailyPoint["1. open"]).toFixed(2) + "  "));
-            div.append($("<span>").html("<strong>High</strong>: "+parseFloat(dailyPoint["2. high"]).toFixed(2) + "  "));
-            div.append($("<span>").html("<strong>Low</strong>: "+parseFloat(dailyPoint["3. low"]).toFixed(2) + "  "));
+            div.append($("<span>").css("color","black").html("<strong>Open</strong>: " +parseFloat(dailyPoint["1. open"]).toFixed(2) + "  "));
+            div.append($("<span>").css("color","black").html("<strong>High</strong>: "+parseFloat(dailyPoint["2. high"]).toFixed(2) + "  "));
+            div.append($("<span>").css("color","black").html("<strong>Low</strong>: "+parseFloat(dailyPoint["3. low"]).toFixed(2) + "  "));
             $("#data1").append(div);
             // div
 
