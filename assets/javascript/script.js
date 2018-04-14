@@ -74,7 +74,7 @@ $(document).ready(function(){
         button.attr("disabled", "disabled");
         button.addClass("btn btn-success");
         button.text("Let's Go!")
-        button.css("margin-top", "10px")
+        button.css("margin-top",);
 
         div.append(form);
         div.append(button);
@@ -606,7 +606,7 @@ $(document).ready(function(){
 
             
             var div = $("<div>");
-            var article = $("<div>").html('<a href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
+            var article = $("<div>").html('<a target= "_blank" href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
 
             var j = i + 1;
             //var p = $("<div>").html("<img src="+ results[i].urlToImage +"></img>")
@@ -657,7 +657,7 @@ $(document).ready(function(){
             var results = response.articles;
             for (i = 0; i < 3; i++) {
                 var div = $("<div>");
-                var article = $("<div>").html('<a href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
+                var article = $("<div>").html('<a target= "_blank" href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
 
                 var j = i + 1;
                 // var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
@@ -700,7 +700,7 @@ $(document).ready(function(){
             $("#article_search_appears").empty();
             for (i = 0; i < 3; i++) {
                 var div = $("<div>");
-                var article = $("<div>").html('<a href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
+                var article = $("<div>").html('<a target= "_blank" href="'+results[i].url+'"><div class="row"><div class="col-md-12"><div class="thumbnail"><img class="thumbnailImg" src="'+results[i].urlToImage+'"><div class="caption"><h3>'+results[i].title+'</h3><p>'+results[i].description+'</p></div></div></div></div></a>');
 
                 var j = i + 1;
                 // var p1 = $("<div>").text("Article " + j + ": " + results[i].title);
