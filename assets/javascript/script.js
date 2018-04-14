@@ -187,7 +187,6 @@ $(document).ready(function(){
 
         var idloading = $("<img>");
         idloading.attr("id","idloading");
-        
 
         col1.append(data0);
         col1.append(data1);
@@ -268,6 +267,10 @@ $(document).ready(function(){
         col2.append(topVideo);
         
         $("body").append(container); // add the bootstrap container to the body
+
+        var tickerDiv = $("<div>")
+        tickerDiv.html('<div class="ticker-wrap"><div class="ticker"><div class="ticker__item red">GOOG 1029.27 USD -3.24 (-0.31%)</div><div class="ticker__item green">FB 164.52 USD 0.65 (0.40%)</div><div class="ticker__item red">MSFT 93.08 USD -0.50 (-0.53%)</div><div class="ticker__item red">W 66.81 USD -0.91 (-1.34%)</div><div class="ticker__item red">VZ 47.67 USD -0.08 (-0.17%)</div><div class="ticker__item red">T 35.14 USD -0.02 (-0.06%)</div></div></div>');
+        $("body").append(tickerDiv);
 
         populateArticles(); // calls the function to populate top 3 news articles by default
 
